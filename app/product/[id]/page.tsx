@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import AddToCartButton from "@/components/AddToCartButton";
 
 export const dynamic = "force-dynamic";
 
@@ -21,12 +22,10 @@ export default async function ProductPage({
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Product Image */}
         <div className="bg-gray-100 rounded-lg h-96 flex items-center justify-center text-gray-400">
           No image
         </div>
 
-        {/* Product Details */}
         <div className="flex flex-col justify-center">
           <p className="text-sm text-gray-500 mb-2">{product.category}</p>
           <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
@@ -37,12 +36,14 @@ export default async function ProductPage({
           <p className="text-sm text-gray-500 mb-6">
             {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
           </p>
-          <button
-            className="bg-black text-white px-6 py-3 rounded-md text-sm font-medium hover:bg-gray-800 disabled:opacity-50"
-            disabled={product.stock === 0}
-          >
-            Add to Cart
-          </button>
+          <AddToCartButton
+            product={{
+              id: product.id,
+              name: product.name,
+              price: product.price,
+            }}
+            outOfStock={product.stock === 0}
+          />
         </div>
       </div>
     </div>
