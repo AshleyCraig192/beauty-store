@@ -1,9 +1,10 @@
-import Link from "next/link";
-import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
+"use client";
 
-export default async function Navbar() {
-  const { userId } = await auth();
+import Link from "next/link";
+import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
+
+export default function Navbar() {
+  const { isSignedIn } = useAuth();
 
   return (
     <nav className="w-full bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
@@ -18,7 +19,7 @@ export default async function Navbar() {
         <Link href="/cart" className="text-sm text-gray-600 hover:text-gray-900">
           Cart
         </Link>
-        {userId ? (
+        {isSignedIn ? (
           <UserButton />
         ) : (
           <SignInButton mode="modal">
