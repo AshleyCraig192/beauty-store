@@ -2,8 +2,10 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import Link from "next/link";
+import DeleteProductButton from "@/components/DeleteProductButton";
 
 export const dynamic = "force-dynamic";
+
 export default async function AdminProductsPage() {
   const { userId } = await auth();
 
@@ -59,13 +61,14 @@ export default async function AdminProductsPage() {
                   <td className="px-4 py-3 text-gray-600">{product.category}</td>
                   <td className="px-4 py-3">R{product.price.toFixed(2)}</td>
                   <td className="px-4 py-3">{product.stock}</td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 flex items-center gap-3">
                     <Link
                       href={`/admin/products/${product.id}/edit`}
                       className="text-blue-600 hover:underline"
                     >
                       Edit
                     </Link>
+                    <DeleteProductButton id={product.id} />
                   </td>
                 </tr>
               ))}

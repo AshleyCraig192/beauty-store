@@ -37,3 +37,18 @@ export async function GET() {
 
   return NextResponse.json(products);
 }
+export async function DELETE(req: Request) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await req.json();
+
+  await db.product.delete({
+    where: { id },
+  });
+
+  return NextResponse.json({ success: true });
+}
