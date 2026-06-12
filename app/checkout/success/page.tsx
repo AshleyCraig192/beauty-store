@@ -1,6 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect } from "react";
+import { useCart } from "@/lib/cartContext";
 
 export default function CheckoutSuccessPage() {
+  const { clearCart } = useCart();
+
+  useEffect(() => {
+    clearCart();
+    localStorage.removeItem("cart");
+  }, []);
+
   return (
     <div className="max-w-xl mx-auto px-6 py-24 text-center">
       <div className="text-5xl mb-6">✅</div>
