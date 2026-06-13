@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import UpdateOrderStatus from "@/components/UpdateOrderStatus";
 
 export const dynamic = "force-dynamic";
 
@@ -47,9 +48,10 @@ export default async function AdminOrdersPage() {
                   <td className="px-4 py-3">{order.user.email}</td>
                   <td className="px-4 py-3">R{order.totalAmount.toFixed(2)}</td>
                   <td className="px-4 py-3">
-                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">
-                      {order.status}
-                    </span>
+                    <UpdateOrderStatus
+                      orderId={order.id}
+                      currentStatus={order.status}
+                    />
                   </td>
                   <td className="px-4 py-3 text-gray-500">
                     {new Date(order.createdAt).toLocaleDateString()}
