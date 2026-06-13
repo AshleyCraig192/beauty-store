@@ -20,6 +20,11 @@ export default function Navbar() {
         <Link href="/shop" className="text-sm text-gray-600 hover:text-gray-900">
           Shop
         </Link>
+        {isSignedIn && (
+        <Link href="/account" className="text-sm text-gray-600 hover:text-gray-900">
+          My Orders
+        </Link>
+      )}
         <Link href="/cart" className="text-sm text-gray-600 hover:text-gray-900 relative">
           Cart
           {itemCount > 0 && (
