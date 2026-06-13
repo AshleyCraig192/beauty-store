@@ -14,26 +14,35 @@ export default async function Home() {
   return (
     <div className="flex flex-col w-full">
       {/* Hero Banner */}
-      <section className="w-full bg-[#f5ede6] py-20 px-6 text-center">
-        <p className="text-xs tracking-widest uppercase text-[#8c7b6e] mb-4">
-          Premium Asian Beauty
-        </p>
-        <h1
-          className="text-5xl md:text-6xl font-bold text-[#1a1a1a] mb-6"
-          style={{ fontFamily: "var(--font-playfair)" }}
-        >
-          Lit From Within
-        </h1>
-        <p className="text-sm text-[#8c7b6e] max-w-xl mx-auto mb-8 leading-relaxed">
-          Discover a thoughtfully curated selection of premium Asian self-care products. 
-          Reveal a luminous, healthy glow that celebrates your natural beauty.
-        </p>
-        <Link
-          href="/shop"
-          className="inline-block bg-[#1a1a1a] text-white px-8 py-3 text-xs tracking-widest uppercase hover:bg-[#8c7b6e] transition-colors"
-        >
-          Shop Now
-        </Link>
+      <section className="w-full relative min-h-[500px] flex items-center justify-center">
+        <Image
+          src="/hero-banner1.jpg"
+          alt="Litsy Hero Banner"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="relative z-10 text-center px-6 py-20">
+          <p className="text-xs tracking-widest uppercase text-[#8c7b6e] mb-4">
+            Premium Asian Beauty
+          </p>
+          <h1
+            className="text-5xl md:text-6xl font-bold text-[#1a1a1a] mb-6"
+            style={{ fontFamily: "var(--font-playfair)" }}
+          >
+            Lit From Within
+          </h1>
+          <p className="text-sm text-[#8c7b6e] max-w-xl mx-auto mb-8 leading-relaxed">
+            Discover a thoughtfully curated selection of premium Asian self-care products.
+            Reveal a luminous, healthy glow that celebrates your natural beauty.
+          </p>
+          <Link
+            href="/shop"
+            className="inline-block bg-[#1a1a1a] text-white px-8 py-3 text-xs tracking-widest uppercase hover:bg-[#8c7b6e] transition-colors"
+          >
+            Shop Now
+          </Link>
+        </div>
       </section>
 
       {/* About Strip */}
@@ -118,8 +127,8 @@ export default async function Home() {
             Confidence, in your own skin
           </h2>
           <p className="text-sm text-[#8c7b6e] leading-relaxed max-w-2xl mx-auto">
-            Dedicated to self-care rooted in centuries of tradition and minimalism, combined with 
-            modern dermatological science. Litsy brings a thoughtfully chosen range of genuine 
+            Dedicated to self-care rooted in centuries of tradition and minimalism, combined with
+            modern dermatological science. Litsy brings a thoughtfully chosen range of genuine
             Asian skincare and beauty treasures to South Africa.
           </p>
         </div>
