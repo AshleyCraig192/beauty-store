@@ -18,7 +18,7 @@ export default function AddToCartButton({ product, outOfStock }: Props) {
     <button
       onClick={() => addItem({ ...product, quantity: 1 })}
       disabled={outOfStock}
-      className="bg-black text-white px-6 py-3 rounded-md text-sm font-medium hover:bg-gray-800 disabled:opacity-50"
+      className="w-full border border-[#1a1a1a] text-[#1a1a1a] py-2 text-xs tracking-widest uppercase hover:bg-[#1a1a1a] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {outOfStock ? "Out of Stock" : "Add to Cart"}
     </button>
