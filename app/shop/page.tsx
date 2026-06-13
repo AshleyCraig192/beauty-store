@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -25,8 +26,18 @@ export default async function ShopPage() {
               href={`/product/${product.id}`}
               className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
             >
-              <div className="bg-gray-100 h-48 flex items-center justify-center text-gray-400 text-sm">
-                No image
+              <div className="bg-gray-100 h-48 flex items-center justify-center text-gray-400 text-sm overflow-hidden">
+                {product.images.length > 0 ? (
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    width={300}
+                    height={200}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span>No image</span>
+                )}
               </div>
               <div className="p-4">
                 <h3 className="font-medium text-gray-900 mb-1">{product.name}</h3>

@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function NewProductPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -13,6 +16,24 @@ export default function NewProductPage() {
     stock: "",
     category: "",
   });
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    setImageUrl(data.secure_url);
+    setUploading(false);
+  };
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -25,7 +46,7 @@ export default function NewProductPage() {
         price: parseFloat(form.price),
         stock: parseInt(form.stock),
         category: form.category,
-        images: [],
+        images: imageUrl ? [imageUrl] : [],
       }),
     });
 
@@ -86,7 +107,7 @@ export default function NewProductPage() {
           />
         </div>
 
-<div>
+        <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
           <select
             value={form.category}
@@ -104,9 +125,31 @@ export default function NewProductPage() {
           </select>
         </div>
 
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="w-full border border-gray-200 rounded-md px-3 py-2 text-sm"
+          />
+          {uploading && <p className="text-sm text-gray-500 mt-1">Uploading...</p>}
+          {imageUrl && (
+            <div className="mt-2">
+              <Image
+                src={imageUrl}
+                alt="Product preview"
+                width={200}
+                height={200}
+                className="rounded-md object-cover"
+              />
+            </div>
+          )}
+        </div>
+
         <button
           onClick={handleSubmit}
-          disabled={loading}
+          disabled={loading || uploading}
           className="bg-black text-white px-6 py-2 rounded-md text-sm hover:bg-gray-800 disabled:opacity-50"
         >
           {loading ? "Saving..." : "Save Product"}

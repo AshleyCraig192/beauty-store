@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -22,8 +23,18 @@ export default async function ProductPage({
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="bg-gray-100 rounded-lg h-96 flex items-center justify-center text-gray-400">
-          No image
+        <div className="bg-gray-100 rounded-lg h-96 flex items-center justify-center text-gray-400 overflow-hidden">
+          {product.images.length > 0 ? (
+            <Image
+              src={product.images[0]}
+              alt={product.name}
+              width={600}
+              height={400}
+              className="w-full h-full object-cover rounded-lg"
+            />
+          ) : (
+            <span>No image</span>
+          )}
         </div>
 
         <div className="flex flex-col justify-center">
