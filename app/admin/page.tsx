@@ -1,11 +1,17 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { isAdmin } from "@/lib/roles";
 
 export default async function AdminPage() {
   const { userId } = await auth();
 
   if (!userId) {
     redirect("/sign-in");
+  }
+
+  const adminUser = await isAdmin();
+  if (!adminUser) {
+    redirect("/");
   }
 
   return (

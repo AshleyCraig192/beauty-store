@@ -16,7 +16,7 @@ export default async function Home() {
       {/* Hero Banner */}
       <section className="w-full relative min-h-[500px] flex items-center justify-center">
         <Image
-          src="/hero-banner1.jpg"
+          src="/hero-banner.jpg"
           alt="Litsy Hero Banner"
           fill
           className="object-cover"

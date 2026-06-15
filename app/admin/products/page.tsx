@@ -3,14 +3,20 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import DeleteProductButton from "@/components/DeleteProductButton";
+import { isAdmin } from "@/lib/roles";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminProductsPage() {
-  const { userId } = await auth();
+const { userId } = await auth();
 
   if (!userId) {
     redirect("/sign-in");
+  }
+
+  const adminUser = await isAdmin();
+  if (!adminUser) {
+    redirect("/");
   }
 
   const products = await db.product.findMany({
