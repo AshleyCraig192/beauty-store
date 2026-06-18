@@ -6,10 +6,11 @@ import { useCart } from "@/lib/cartContext";
 import Image from "next/image";
 
 export default function Navbar() {
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, sessionClaims } = useAuth();
   const { items } = useCart();
 
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const isAdmin = (sessionClaims?.metadata as { role?: string })?.role === "admin";
 
   return (
     <header className="w-full">
@@ -40,6 +41,11 @@ export default function Navbar() {
           <Link href="/shop" className="text-xs tracking-widest uppercase text-[#1a1a1a] hover:text-[#8c7b6e] transition-colors">
             Shop
           </Link>
+          {isAdmin && (
+            <Link href="/admin" className="text-xs tracking-widest uppercase text-[#8c7b6e] hover:text-[#1a1a1a] transition-colors">
+              Admin
+            </Link>
+          )}
         </div>
 
         <div className="flex items-center gap-6">
