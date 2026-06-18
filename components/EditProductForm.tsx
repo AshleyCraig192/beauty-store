@@ -10,6 +10,7 @@ type Product = {
   price: number;
   stock: number;
   category: string;
+  brand: string;
 };
 
 export default function EditProductForm({ product }: { product: Product }) {
@@ -21,6 +22,7 @@ export default function EditProductForm({ product }: { product: Product }) {
     price: product.price.toString(),
     stock: product.stock.toString(),
     category: product.category,
+    brand: product.brand ?? "",
   });
 
   const handleSubmit = async () => {
@@ -34,6 +36,7 @@ export default function EditProductForm({ product }: { product: Product }) {
         price: parseFloat(form.price),
         stock: parseInt(form.stock),
         category: form.category,
+        brand: form.brand,
       }),
     });
 
@@ -103,6 +106,17 @@ export default function EditProductForm({ product }: { product: Product }) {
           <option value="Nail Care">Nail Care</option>
           <option value="Tools & Accessories">Tools & Accessories</option>
         </select>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
+        <input
+          type="text"
+          value={form.brand}
+          onChange={(e) => setForm({ ...form, brand: e.target.value })}
+          className="w-full border border-gray-200 rounded-md px-3 py-2 text-sm"
+          placeholder="e.g. COSRX"
+        />
       </div>
 
       <button

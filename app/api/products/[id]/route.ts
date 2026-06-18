@@ -14,18 +14,19 @@ export async function PATCH(
 
   const { id } = await params;
   const body = await req.json();
-  const { name, description, price, stock, category } = body;
+const { name, description, price, stock, category, brand } = body;
 
-  const product = await db.product.update({
-    where: { id },
-    data: {
-      name,
-      description,
-      price,
-      stock,
-      category,
-    },
-  });
+const product = await db.product.update({
+  where: { id },
+  data: {
+    name,
+    description,
+    price,
+    stock,
+    category,
+    brand: brand ?? "",
+  },
+});
 
   return NextResponse.json(product);
 }

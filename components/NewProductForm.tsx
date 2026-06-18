@@ -15,6 +15,7 @@ export default function NewProductForm() {
     price: "",
     stock: "",
     category: "",
+    brand: ""
   });
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +48,7 @@ export default function NewProductForm() {
         stock: parseInt(form.stock),
         category: form.category,
         images: imageUrl ? [imageUrl] : [],
+        brand: form.brand
       }),
     });
 
@@ -121,7 +123,16 @@ export default function NewProductForm() {
           <option value="Tools & Accessories">Tools & Accessories</option>
         </select>
       </div>
-
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
+        <input
+          type="text"
+          value={form.brand}
+          onChange={(e) => setForm({ ...form, brand: e.target.value })}
+          className="w-full border border-gray-200 rounded-md px-3 py-2 text-sm"
+          placeholder="e.g. COSRX"
+        />
+      </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
         <input

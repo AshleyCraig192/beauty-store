@@ -26,6 +26,7 @@ model Product {
   stock       Int         @default(0)
   images      String[]
   category    String
+  brand       String      @default("")
   createdAt   DateTime    @default(now())
   orderItems  OrderItem[]
 }

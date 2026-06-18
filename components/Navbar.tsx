@@ -49,11 +49,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-6">
-          {isSignedIn && (
-            <Link href="/account" className="text-xs tracking-widest uppercase text-[#1a1a1a] hover:text-[#8c7b6e] transition-colors">
-              My Orders
-            </Link>
-          )}
           <Link href="/cart" className="text-xs tracking-widest uppercase text-[#1a1a1a] hover:text-[#8c7b6e] transition-colors relative">
             Cart
             {itemCount > 0 && (
@@ -63,7 +58,15 @@ export default function Navbar() {
             )}
           </Link>
           {isSignedIn ? (
-            <UserButton />
+           <UserButton>
+            <UserButton.MenuItems>
+              <UserButton.Link
+                label="My Orders"
+                labelIcon={<span>📦</span>}
+                href="/account"
+              />
+            </UserButton.MenuItems>
+          </UserButton>
           ) : (
             <SignInButton mode="modal">
               <button className="text-xs tracking-widest uppercase text-[#1a1a1a] hover:text-[#8c7b6e] transition-colors">

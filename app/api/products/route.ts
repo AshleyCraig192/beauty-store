@@ -10,22 +10,23 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  const { name, description, price, stock, category, images } = body;
+const { name, description, price, stock, category, images, brand } = body;
 
-  if (!name || !description || !price || !category) {
-    return NextResponse.json({ error: "Missing fields" }, { status: 400 });
-  }
+if (!name || !description || !price || !category) {
+  return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+}
 
-  const product = await db.product.create({
-    data: {
-      name,
-      description,
-      price,
-      stock,
-      category,
-      images: images ?? [],
-    },
-  });
+const product = await db.product.create({
+  data: {
+    name,
+    description,
+    price,
+    stock,
+    category,
+    brand: brand ?? "",
+    images: images ?? [],
+  },
+});
 
   return NextResponse.json(product);
 }
