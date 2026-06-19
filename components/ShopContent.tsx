@@ -34,12 +34,21 @@ export default function ShopContent({ products, categories, brands }: Props) {
 
   const highestPrice = Math.max(...products.map((p) => p.price));
 
-  useEffect(() => {
-    const category = searchParams.get("category");
-    if (category) {
-      setSelectedCategories([category]);
+useEffect(() => {
+  const category = searchParams.get("category");
+  const brand = searchParams.get("brand");
+  
+  if (category) {
+    setSelectedCategories([category]);
+  }
+  
+  if (brand === "true") {
+    const brandSection = document.getElementById("brand-filter");
+    if (brandSection) {
+      brandSection.scrollIntoView({ behavior: "smooth" });
     }
-  }, [searchParams]);
+  }
+}, [searchParams]);
 
   const toggleCategory = (category: string) => {
     setSelectedCategories((prev) =>
@@ -167,7 +176,7 @@ export default function ShopContent({ products, categories, brands }: Props) {
 
           {/* Brand */}
           {brands.length > 0 && (
-            <div className="mb-6">
+            <div className="mb-6" id="brand-filter">
               <h3 className="text-xs tracking-widest uppercase text-[#1a1a1a] mb-3 font-medium">Brand</h3>
               <div className="flex flex-col gap-2">
                 {brands.map((brand) => (
