@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import AddToCartButton from "@/components/AddToCartButton";
@@ -23,6 +24,7 @@ type Props = {
 };
 
 export default function ShopContent({ products, categories, brands }: Props) {
+  const searchParams = useSearchParams();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [inStockOnly, setInStockOnly] = useState(false);
@@ -31,6 +33,13 @@ export default function ShopContent({ products, categories, brands }: Props) {
   );
 
   const highestPrice = Math.max(...products.map((p) => p.price));
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if (category) {
+      setSelectedCategories([category]);
+    }
+  }, [searchParams]);
 
   const toggleCategory = (category: string) => {
     setSelectedCategories((prev) =>
